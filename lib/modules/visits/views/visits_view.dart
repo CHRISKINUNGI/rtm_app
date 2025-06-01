@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/visits_controller.dart';
-import '../widgets/visit_card.dart';
-import '../widgets/visit_search_filter.dart';
-import '../../../services/offline_storage_service.dart';
+import '../widgets/visit_card.dart'; // Assuming this path is correct
+import '../widgets/visit_search_filter.dart'; // Assuming this path is correct
+import '../../../services/offline_storage_service.dart'; // Assuming this path is correct
 
 class VisitsView extends GetView<VisitsController> {
   const VisitsView({Key? key}) : super(key: key);
@@ -18,9 +18,11 @@ class VisitsView extends GetView<VisitsController> {
         actions: [
           // Network status indicator
           Obx(() => Container(
+                // Further reduced horizontal padding
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 8), 
                 child: Row(
+                  mainAxisSize: MainAxisSize.min, 
                   children: [
                     Icon(
                       offlineStorage.isOnline.value
@@ -29,14 +31,19 @@ class VisitsView extends GetView<VisitsController> {
                       color: offlineStorage.isOnline.value
                           ? Colors.green
                           : Colors.red,
+                      size: 20, 
                     ),
-                    const SizedBox(width: 4),
-                    Text(
-                      offlineStorage.isOnline.value ? 'Online' : 'Offline',
-                      style: TextStyle(
-                        color: offlineStorage.isOnline.value
-                            ? Colors.green
-                            : Colors.red,
+                    const SizedBox(width: 2), // Reduced spacing
+                    Flexible( 
+                      child: Text(
+                        offlineStorage.isOnline.value ? 'Online' : 'Offline',
+                        style: TextStyle(
+                          color: offlineStorage.isOnline.value
+                              ? Colors.green
+                              : Colors.red,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
                       ),
                     ),
                   ],
@@ -49,59 +56,82 @@ class VisitsView extends GetView<VisitsController> {
             final syncProgress = controller.syncProgress.value;
             final pendingCount = controller.pendingVisits.length;
 
+            Widget statusIndicatorWidget = const SizedBox.shrink();
+
+            if (hasPendingSync) {
+              statusIndicatorWidget = Container(
+                // Further reduced horizontal padding
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 8), 
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.sync, color: Colors.orange, size: 20),
+                    const SizedBox(width: 2), // Reduced spacing
+                    const Flexible( 
+                      child: Text(
+                        'Syncing...',
+                        style: TextStyle(color: Colors.orange),
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                      ),
+                    ),
+                    const SizedBox(width: 2), // Reduced spacing
+                    SizedBox(
+                      width: 60, 
+                      child: LinearProgressIndicator(
+                        value: syncProgress,
+                        backgroundColor: Colors.grey[300],
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                            Colors.orange),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else if (pendingCount > 0) { 
+              statusIndicatorWidget = Container(
+                // Further reduced horizontal padding
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 8), 
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.pending_actions, color: Colors.orange, size: 20),
+                    const SizedBox(width: 2), // Reduced spacing
+                    Flexible( 
+                      child: Text(
+                        '$pendingCount pending',
+                        style: const TextStyle(color: Colors.orange),
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+
             return Row(
+              mainAxisSize: MainAxisSize.min, 
               children: [
-                if (hasPendingSync)
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.sync, color: Colors.orange),
-                        const SizedBox(width: 4),
-                        const Text(
-                          'Syncing...',
-                          style: TextStyle(color: Colors.orange),
-                        ),
-                        const SizedBox(width: 8),
-                        SizedBox(
-                          width: 100,
-                          child: LinearProgressIndicator(
-                            value: syncProgress,
-                            backgroundColor: Colors.grey[300],
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                                Colors.orange),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                if (pendingCount > 0 && !hasPendingSync)
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.pending_actions, color: Colors.orange),
-                        const SizedBox(width: 4),
-                        Text(
-                          '$pendingCount pending',
-                          style: const TextStyle(color: Colors.orange),
-                        ),
-                      ],
-                    ),
-                  ),
+                Flexible(child: statusIndicatorWidget), 
                 IconButton(
                   icon: Icon(
                     Icons.sync,
-                    color: isOnline ? Colors.white : Colors.grey,
+                    color: isOnline ? const Color.fromARGB(255, 108, 183, 204) : const Color.fromARGB(255, 64, 192, 76),
                   ),
+                  // Reducing IconButton's default padding can be tricky without custom widgets.
+                  // However, ensuring the content around it is minimal helps.
+                  constraints: const BoxConstraints(), // Adding this can sometimes help reduce IconButton's footprint
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0), // Explicitly set padding for IconButton
+                  iconSize: 24, // Default is 24, ensure it's not larger
                   onPressed: isOnline
                       ? () async {
                           try {
                             await controller.syncPendingVisits();
                           } catch (e) {
-                            // Error handling is done in the controller
+                            debugPrint("Error during sync: $e");
                           }
                         }
                       : null,
@@ -113,7 +143,11 @@ class VisitsView extends GetView<VisitsController> {
           }),
           IconButton(
             icon: const Icon(Icons.add),
+            constraints: const BoxConstraints(), // Adding this can sometimes help reduce IconButton's footprint
+            padding: const EdgeInsets.symmetric(horizontal: 8.0), // Explicitly set padding for IconButton
+            iconSize: 24, // Default is 24
             onPressed: () => Get.toNamed('/add-visit'),
+            tooltip: 'Add new visit',
           ),
         ],
       ),
@@ -124,33 +158,40 @@ class VisitsView extends GetView<VisitsController> {
             VisitSearchFilter(controller: controller),
             Expanded(
               child: Obx(() {
-                if (controller.isLoading.value) {
+                if (controller.isLoading.value && controller.visits.isEmpty) { 
                   return const Center(child: CircularProgressIndicator());
                 }
 
                 if (controller.filteredVisits.isEmpty) {
                   return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.event_busy,
-                            size: 64, color: Colors.grey),
-                        const SizedBox(height: 16),
-                        Text(
-                          controller.visits.isEmpty
-                              ? 'No visits found'
-                              : 'No visits match your filters',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0), 
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.event_busy,
+                              size: 64, color: Colors.grey),
+                          const SizedBox(height: 16),
+                          Text(
+                            controller.visits.isEmpty
+                                ? 'No visits found'
+                                : 'No visits match your filters',
+                            textAlign: TextAlign.center, 
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                            ),
+                            
                           ),
-                        ),
-                        if (controller.visits.isEmpty)
-                          TextButton(
-                            onPressed: () => Get.toNamed('/add-visit'),
-                            child: const Text('Add your first visit'),
-                          ),
-                      ],
+                          if (controller.visits.isEmpty) ...[ 
+                            const SizedBox(height: 8),
+                            TextButton(
+                              onPressed: () => Get.toNamed('/add-visit'),
+                              child: const Text('Add your first visit'),
+                            ),
+                          ]
+                        ],
+                      ),
                     ),
                   );
                 }
@@ -173,6 +214,7 @@ class VisitsView extends GetView<VisitsController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed('/add-visit'),
+        tooltip: 'Add new visit', 
         child: const Icon(Icons.add),
       ),
     );

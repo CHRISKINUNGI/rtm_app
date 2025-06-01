@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/visits_controller.dart';
+import '../controllers/visits_controller.dart'; // Assuming this path is correct
 
 class VisitSearchFilter extends StatelessWidget {
   final VisitsController controller;
@@ -39,14 +39,20 @@ class VisitSearchFilter extends StatelessWidget {
                 Expanded(
                   child: Obx(() => DropdownButtonFormField<String>(
                         value: controller.selectedStatus.value,
+                        isExpanded: true, // Allow dropdown to expand
                         decoration: const InputDecoration(
                           labelText: 'Status',
                           border: OutlineInputBorder(),
+                          // Consider reducing contentPadding if space is extremely tight:
+                          // contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         ),
                         items: ['All', 'Pending', 'Completed', 'Cancelled']
                             .map((status) => DropdownMenuItem(
                                   value: status,
-                                  child: Text(status),
+                                  child: Text(
+                                    status,
+                                    overflow: TextOverflow.ellipsis, // Handle overflow for status text
+                                  ),
                                 ))
                             .toList(),
                         onChanged: controller.setStatusFilter,
@@ -56,17 +62,28 @@ class VisitSearchFilter extends StatelessWidget {
                 Expanded(
                   child: Obx(() => DropdownButtonFormField<String>(
                         value: controller.selectedActivity.value,
+                        isExpanded: true, // Allow dropdown to expand
                         decoration: const InputDecoration(
                           labelText: 'Activity',
                           border: OutlineInputBorder(),
+                          // Consider reducing contentPadding if space is extremely tight:
+                          // contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         ),
                         items: [
                           const DropdownMenuItem(
-                              value: 'All', child: Text('All Activities')),
+                            value: 'All',
+                            child: Text(
+                              'All Activities',
+                              overflow: TextOverflow.ellipsis, // Handle overflow
+                            ),
+                          ),
                           ...controller.activities
                               .map((activity) => DropdownMenuItem(
                                     value: activity['id'].toString(),
-                                    child: Text(activity['description']),
+                                    child: Text(
+                                      activity['description'],
+                                      overflow: TextOverflow.ellipsis, // Crucial for long descriptions
+                                    ),
                                   )),
                         ],
                         onChanged: controller.setActivityFilter,
@@ -81,11 +98,15 @@ class VisitSearchFilter extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextButton.icon(
+                    style: TextButton.styleFrom(
+                      // Potentially reduce padding if TextButton itself contributes to overflow
+                      // padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    ),
                     onPressed: () => controller.selectDateRange(context),
                     icon: const Icon(Icons.calendar_today),
                     label: Obx(() => Text(
                           controller.dateRangeText.value,
-                          overflow: TextOverflow.ellipsis,
+                          overflow: TextOverflow.ellipsis, // Already good
                         )),
                   ),
                 ),
