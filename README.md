@@ -2,7 +2,7 @@
 
 A Flutter application for tracking sales visits and activities, built with offline support and modern architecture.
 
-## Overview
+## ✨Overview
 
 This application allows sales representatives to:
 - Track customer visits
@@ -11,7 +11,22 @@ This application allows sales representatives to:
 - Search and filter visits
 - Work offline with automatic sync when online
 
-## Architecture
+
+## 📱 App Screenshots
+
+*(Illustrate the core functionalities and user interface of your app. Replace these placeholders with your actual screenshots.)*
+
+<p align="center">
+  <img src="https://placehold.co/250x500/EFEFEF/333333?text=Login/Dashboard+Screen" alt="Login/Dashboard Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="https://placehold.co/250x500/EFEFEF/333333?text=Visit+List+Screen" alt="Visit List Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="https://placehold.co/250x500/EFEFEF/333333?text=Create/Edit+Visit+Screen" alt="Create/Edit Visit Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="https://placehold.co/250x500/EFEFEF/333333?text=Offline+Mode+Indicator" alt="Offline Mode Indicator" width="200" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+</p>
+
+---
+
+
+## 🏗️ Architecture
 
 The application follows a clean architecture pattern with the following layers:
 
@@ -29,7 +44,7 @@ The application follows a clean architecture pattern with the following layers:
 - **Offline Storage**: Local data persistence using SharedPreferences
 - **Sync Service**: Handles data synchronization between local and remote
 
-## Key Features
+## ✨ Key Features
 
 1. **Visit Management**
    - Create new visits
@@ -54,7 +69,7 @@ The application follows a clean architecture pattern with the following layers:
    - Filter by status
    - Filter by activities
 
-## Setup Instructions
+## 🛠️ Setup Instructions
 
 1. **Prerequisites**
    ```bash
@@ -87,7 +102,7 @@ The application follows a clean architecture pattern with the following layers:
    flutter build apk --release
    ```
 
-## Offline Support
+## ✈️ Offline Support Details
 
 The app implements offline-first architecture:
 - Visits can be created without internet connection
@@ -95,7 +110,7 @@ The app implements offline-first architecture:
 - Automatic sync when connection is restored
 - Conflict resolution based on timestamps
 
-## Testing
+## 🧪 Testing
 
 The project includes:
 - Unit tests for business logic
