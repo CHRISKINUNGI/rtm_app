@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'RTM Visits Tracker',
       theme: ThemeData(
         primarySwatch: Colors.blue,
