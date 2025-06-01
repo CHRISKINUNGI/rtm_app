@@ -17,10 +17,12 @@ This application allows sales representatives to:
 *(Illustrate the core functionalities and user interface of your app. Replace these placeholders with your actual screenshots.)*
 
 <p align="center">
-  <img src="https://placehold.co/250x500/EFEFEF/333333?text=Login/Dashboard+Screen" alt="Login/Dashboard Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
-  <img src="https://placehold.co/250x500/EFEFEF/333333?text=Visit+List+Screen" alt="Visit List Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
-  <img src="https://placehold.co/250x500/EFEFEF/333333?text=Create/Edit+Visit+Screen" alt="Create/Edit Visit Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
-  <img src="https://placehold.co/250x500/EFEFEF/333333?text=Offline+Mode+Indicator" alt="Offline Mode Indicator" width="200" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="assets/screenshots/Screenshot_20250601_104802.jpg" alt="App Dashboard Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="assets/screenshots/Screenshot_20250601_104023.jpg" alt="Visit List & Filter Screen with Online Indicator" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="assets/screenshots/Screenshot_20250601_110148.jpg" alt="Add New Visit Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="assets/screenshots/Screenshot_20250601_104818.jpg" alt="Recent Activity Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="assets/screenshots/Screenshot_20250601_104850.jpg" alt="Statistics Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <img src="assets/screenshots/Screenshot_20250601_104904.jpg" alt="Detailed Statistics Screen" width="200" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
 </p>
 
 ---
@@ -80,7 +82,7 @@ The application follows a clean architecture pattern with the following layers:
 2. **Installation**
    ```bash
    # Clone the repository
-   git clone https://github.com/yourusername/rtm_app.git
+   git clone [https://github.com/yourusername/rtm_app.git](https://github.com/yourusername/rtm_app.git)
 
    # Navigate to project directory
    cd rtm_app
@@ -92,6 +94,7 @@ The application follows a clean architecture pattern with the following layers:
 3. **Configuration**
    - The app uses Supabase for backend services
    - API key is already configured in the services
+   - Ensure your `.env` file is set up if used for Supabase credentials (not explicitly shown in pubspec but good practice).
 
 4. **Running the App**
    ```bash
@@ -145,6 +148,7 @@ All requests require an API key in the header:
 ```
 apikey: your-api-key
 ```
+(Assuming this is how Supabase is configured, or adjust as per your Supabase setup, e.g., Bearer token for JWT)
 
 ## Assumptions and Limitations
 
@@ -179,7 +183,3 @@ apikey: your-api-key
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
