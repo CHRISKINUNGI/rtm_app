@@ -19,7 +19,7 @@ jobs:
       with:
        
         channel: 'stable'
-        flutter-version: '3.2.0'
+        
 
     
     - name: Analyze project
