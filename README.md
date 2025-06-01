@@ -14,7 +14,7 @@ This application allows sales representatives to:
 
 ## 📱 App Screenshots
 
-*(Illustrate the core functionalities and user interface of your app. Replace these placeholders with your actual screenshots.)*
+*(Illustrate the core functionalities and user interface of your app.)*
 
 <p align="center">
   <img src="assets/screenshots/Screenshot_20250601_104802.jpg" alt="App Dashboard Screen" width="200" style="margin-right: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
